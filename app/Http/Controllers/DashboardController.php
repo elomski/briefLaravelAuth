@@ -19,6 +19,7 @@ class DashboardController extends Controller
     }
 
     public function registration(){
+         
         if(Auth::check())
         return redirect()->route('dashboard');
 
@@ -26,6 +27,7 @@ class DashboardController extends Controller
     }
 
     public function login(){
+
         if(Auth::check())
         return redirect()->route('dashboard');
 
@@ -33,9 +35,32 @@ class DashboardController extends Controller
     }
 
     public function vue(){
+
         if(Auth::check())
         return redirect()->route('dashboard');
     
         return view('login');
+    }
+
+    public function forgottenpassword(){
+        if(Auth::check())
+        return redirect()->route('dashboard');
+
+        return view('forgottenPassword');
+    }
+
+    public function otpcode(){
+
+        if(Auth::check())
+            return redirect()->route('dashboard');
+    
+        return view('otp');
+    }
+
+    public function newpassword(){
+        if(Auth::check())
+        return redirect()->route('dashboard');
+    
+        return view('newPassword');
     }
 }

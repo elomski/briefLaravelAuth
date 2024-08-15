@@ -1,38 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout/base')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".css">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+@section('content')
+    <div class="form-cover">
+        <form class="login-form" action="{{ route('login.process') }}" method="POST">
+            @csrf
+            <h1>Connexion</h1>
+            @if ($errors->any())
+                <ul class="alert alert-danger">
+                    {!! implode('', $errors->all('<li>:message</li>')) !!}
+                </ul>
+            @endif
 
-    <title>Authentification</title>
-</head>
+            @if ($message = Session::get('error'))
+                <div>{{ $message }} </div><br />
+            @endif
 
-<body>
-    <form action="{{ route('login.process') }}" method="POST">
-        @csrf
-        <h1>Connexion</h1>
-        @if ($errors->any())
-            <ul class="alert alert-danger">
-                {!! implode('', $errors->all('<li>:message</li>')) !!}
-            </ul>
-        @endif
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="saisir l'email ici..."><br />
 
-        @if ($message = Session::get('error'))
-            <div>{{ $message }} </div><br />
-        @endif
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" placeholder="saisir le mot de passe ici..."><br />
 
-        <label for="email">Email</label><br/>
-        <input type="text" name="email" id="email" placeholder="saisir l'email ici..."><br/><br/>
-
-        <label for="password">Mot de passe</label><br/>
-        <input type="password" name="password" id="password" placeholder="saisir le mot de passe ici..."><br/><br/>
-
-        <a href="{{ route('registration')}}">S'inscrire</a><br/><br/>
-        <button type="submit">Soumettre</button>
-    </form>
-</body>
-
-</html>
+            <a href="{{ route('registration') }}">S'inscrire</a>
+            <a href="{{ route('forgottenPassword') }}">Mot de passe oublier</a>
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
+@endsection
